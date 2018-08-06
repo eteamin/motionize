@@ -30,7 +30,7 @@ class MainScreen(FloatLayout):
         self.score.text = 'Your Score is: {}'.format(self.points)
         self.add_widget(self.score)
         self.size_hint = None, None
-        self.size = 1024, 768
+        self.size = Config.get('graphics', 'width'), Config.get('graphics', 'height')
         with self.canvas.before:
             self.rect = Rectangle(size=self.size, pos=self.pos, source='assets/bg1.jpg')
         self.bounty = Image(source='assets/coin.jpg', size_hint=(None, None), size=(50, 50))
@@ -79,13 +79,13 @@ class MainScreen(FloatLayout):
         self.miner.pos = position
 
     def manage_objects(self, *args):
-        width = randint(0, 800)
-        height = randint(0, 600)
+        width = randint(0, Config.get('graphics', 'width'))
+        height = randint(0, Config.get('graphics', 'height'))
         self.bounty.pos = width, height
         self.add_widget(self.bounty)
         for d in self.dynamites:
-            width = randint(0, 800)
-            height = randint(0, 600)
+            width = randint(0, Config.get('graphics', 'width'))
+            height = randint(0, Config.get('graphics', 'height'))
             d.pos = width, height
             self.add_widget(d)
         Clock.schedule_once(self.remove_objects, 3)
